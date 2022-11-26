@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      showSemanticsDebugger: false,
+      debugShowCheckedModeBanner: false ,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
@@ -87,6 +88,21 @@ class FetchResult {
       'FetchResult (isRetrievedFromCache = $isRetrievedFromCache, persons = $persons)';
 }
 
+class PersonsBloc extends Bloc<LoadAction, FetchResult?>{
+  final Map<PersonUrl, Iterable<Person>> _cache = {};
+   PersonsBloc(): super(null) {
+    on<LoadPersonAction>(
+      (event, emit) {
+        final url = event.url;
+        if(_cache.containsKey(url)){
+         final cachedPersons = _cache[url]!;
+        } 
+
+      }
+    );
+   }
+}
+
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
@@ -94,7 +110,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("FLutter Bloc"),
+        title: const Text("Flutter Bloc"),
       ),
     );
   }
