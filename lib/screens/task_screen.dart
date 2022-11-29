@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbloc/screens/add_task_screen.dart';
 import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
 import '../widgets/tasks_list.dart';
 
-class TasksScreen extends StatelessWidget {
-  TasksScreen({super.key});
+class TasksScreen extends StatefulWidget {
+  const TasksScreen({super.key});
 
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
   TextEditingController titleController = TextEditingController();
 
   void _addTask(BuildContext context) {
@@ -15,11 +21,7 @@ class TasksScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Column(children: [
-                  TextField(
-                    controller: titleController,
-                  ),
-                ]),
+                child: AddTaskScreen(),
               ),
             ));
   }
@@ -34,7 +36,7 @@ class TasksScreen extends StatelessWidget {
             title: const Text("Tasks App"),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => _addTask(context),
                 icon: const Icon(Icons.add),
               ),
             ],
