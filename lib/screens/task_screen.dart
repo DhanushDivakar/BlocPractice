@@ -51,7 +51,7 @@ class TasksScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () => _addTask(context),
             tooltip: 'Add Task',
             child: const Icon(Icons.add),
           ),
