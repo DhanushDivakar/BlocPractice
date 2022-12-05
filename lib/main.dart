@@ -3,7 +3,7 @@ import 'package:flutterbloc/screens/task_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'blocs/bloc_exports.dart';
-// this is root of your application
+//  root of your application
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
