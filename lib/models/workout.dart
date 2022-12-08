@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutterbloc/models/exercise.dart';
 
-class Workout{
+class Workout extends Equatable{
   final String? title;
   final List<Exercise> exercises;
   const Workout({required this.title, required this.exercises});
@@ -20,6 +21,10 @@ class Workout{
   }
   
   Map<String, dynamic> toJson() => {'title': title, 'excercises': exercises};
+  
+  @override
+
+  List<Object?> get props => [title, exercises];
 
 
 }
