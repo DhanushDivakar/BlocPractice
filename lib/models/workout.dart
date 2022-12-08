@@ -4,7 +4,7 @@ import 'package:flutterbloc/models/exercise.dart';
 class Workout extends Equatable {
   final String? title;
   final List<Exercise> exercises;
-  
+
   const Workout({
     required this.title,
     required this.exercises,
@@ -15,7 +15,7 @@ class Workout extends Equatable {
     int index = 0;
     int startTime = 0;
     for (var ex in (json['excercises'] as Iterable)) {
-      exercises.add(Exercise.fromJson(json, index, startTime));
+      exercises.add(Exercise.fromJson(ex, index, startTime));
       index++;
       startTime += exercises.last.prelude! + exercises.last.duration!;
     }
