@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterbloc/blocs/workout_cubit.dart';
 import 'package:flutterbloc/blocs/workouts_cubit.dart';
 import 'package:flutterbloc/helpers/helpers.dart';
 import 'package:flutterbloc/models/workout.dart';
@@ -29,31 +30,35 @@ class HomePage extends StatelessWidget {
                   (workout) => ExpansionPanelRadio(
                     value: workout,
                     headerBuilder: (BuildContext context, bool isExpanded) =>
-                         ListTile(
+                        ListTile(
                       visualDensity: const VisualDensity(
                           horizontal: 0,
                           vertical: VisualDensity.maximumDensity),
-                          leading: IconButton(onPressed: (){}, icon: const Icon(Icons.edit)),
-                          title: Text(workout.title ?? ''),
-                           trailing: Text(formatTime(workout.getTotal(), true)),
+                      leading: IconButton(
+                          onPressed: (){
+                            BlocProvider.of<WorkoutCubit>(context)
+                              .editWorkout(workout, workouts.indexOf(workout));
+                          },
+                          icon: const Icon(Icons.edit)),
+                      title: Text(workout.title ?? ''),
+                      trailing: Text(formatTime(workout.getTotal(), true)),
                     ),
                     body: ListView.builder(
                       shrinkWrap: true,
                       itemCount: workout.exercises.length,
-                    itemBuilder: (BuildContext context,int index) {
-                      return ListTile(
-                        onTap: null,
-                      visualDensity: const VisualDensity(
-                          horizontal: 0,
-                          vertical: VisualDensity.maximumDensity),
-                          leading: Text(formatTime(workout.exercises[index].prelude ?? 0, true)),
-                          title: Text(workout.exercises[index].title  ?? '' ),
-                          trailing: Text(formatTime(workout.exercises[index].duration ?? 0, true)),
-                         
-                    );
-                      
-
-                    },
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          onTap: null,
+                          visualDensity: const VisualDensity(
+                              horizontal: 0,
+                              vertical: VisualDensity.maximumDensity),
+                          leading: Text(formatTime(
+                              workout.exercises[index].prelude ?? 0, true)),
+                          title: Text(workout.exercises[index].title ?? ''),
+                          trailing: Text(formatTime(
+                              workout.exercises[index].duration ?? 0, true)),
+                        );
+                      },
                     ),
                   ),
                 )
